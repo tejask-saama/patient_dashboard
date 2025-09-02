@@ -1,0 +1,52 @@
+/* Responsive styles */
+@media (max-width: 768px) {
+  .chart-container {
+    height: 250px !important;
+  }
+  
+  .dashboard-card {
+    margin-bottom: 1rem !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .chart-container {
+    height: 300px !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chart responsive adjustments */
+.recharts-responsive-container {
+  min-height: 200px;
+}
+
+/* Sidebar adjustments */
+@media (max-width: 768px) {
+  .sidebar-drawer {
+    width: 100% !important;
+  }
+}
