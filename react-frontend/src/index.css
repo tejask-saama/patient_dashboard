@@ -1,0 +1,51 @@
+:root {
+  /* Light theme variables */
+  --primary-light: #0A6EBD;
+  --secondary-light: #45CFDD;
+  --accent-light: #5FBDFF;
+  --text-primary-light: #333333;
+  --text-secondary-light: #666666;
+  --bg-primary-light: #ffffff;
+  --bg-secondary-light: #f5f9fc;
+  --card-bg-light: #ffffff;
+  --border-light: #e0e0e0;
+  
+  /* Dark theme variables */
+  --primary-dark: #1a8fe3;
+  --secondary-dark: #4db5ff;
+  --accent-dark: #58a6ff;
+  --text-primary-dark: #e0e0e0;
+  --text-secondary-dark: #b0b0b0;
+  --bg-primary-dark: #121212;
+  --bg-secondary-dark: #1e1e1e;
+  --card-bg-dark: #2a2a2a;
+  --border-dark: #444444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+body.light-theme {
+  background-color: var(--bg-secondary-light);
+  color: var(--text-primary-light);
+}
+
+body.dark-theme {
+  background-color: var(--bg-secondary-dark);
+  color: var(--text-primary-dark);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
