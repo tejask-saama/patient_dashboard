@@ -22,6 +22,10 @@ import { motion } from 'framer-motion';
 import DashboardCard from '../components/common/DashboardCard';
 import AgeDistributionChart from '../components/charts/AgeDistributionChart';
 import GenderDistributionChart from '../components/charts/GenderDistributionChart';
+import AgeByCountryChart from '../components/charts/AgeByCountryChart';
+import TopCitiesChart from '../components/charts/TopCitiesChart';
+import LocaleBreakdownChart from '../components/charts/LocaleBreakdownChart';
+import RegistrationTrendChart from '../components/charts/RegistrationTrendChart';
 import { fetchPatientDemographics, binAges } from '../services/api';
 
 // Motion container for animation
@@ -30,6 +34,7 @@ const MotionBox = motion(Box);
 const PatientDemographics = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const geography = data?.geography || {};
   const toast = useToast();
 
   useEffect(() => {
@@ -192,23 +197,11 @@ const PatientDemographics = () => {
               </DashboardCard>
               
               <DashboardCard 
-                title="Average BMI by Marital Status" 
-                subtitle="Health metrics correlation"
-                height="400px"
-              >
-                <Box p={10} textAlign="center" color="gray.500">
-                  BMI chart will be displayed here
-                </Box>
-              </DashboardCard>
-              
-              <DashboardCard 
                 title="Average Age by Country" 
                 subtitle="Geographic age distribution"
                 height="400px"
               >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Age by country chart will be displayed here
-                </Box>
+                <AgeByCountryChart data={data?.cross_cutting?.avg_age_by_country} />
               </DashboardCard>
             </SimpleGrid>
           </TabPanel>
@@ -221,9 +214,7 @@ const PatientDemographics = () => {
                 subtitle="Patient distribution by city"
                 height="400px"
               >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Top cities chart will be displayed here
-                </Box>
+                <TopCitiesChart data={geography.top_cities} />
               </DashboardCard>
               
               <DashboardCard 
@@ -231,21 +222,9 @@ const PatientDemographics = () => {
                 subtitle="Urban vs rural distribution"
                 height="400px"
               >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Locale breakdown chart will be displayed here
-                </Box>
+                <LocaleBreakdownChart data={geography.locale_breakdown} />
               </DashboardCard>
               
-              <DashboardCard 
-                title="Geographic Map" 
-                subtitle="Patient density by region"
-                height="400px"
-                gridColumn={{ lg: "span 2" }}
-              >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Geographic map will be displayed here
-                </Box>
-              </DashboardCard>
             </SimpleGrid>
           </TabPanel>
           
@@ -257,9 +236,7 @@ const PatientDemographics = () => {
                 subtitle="Patient registration over time"
                 height="400px"
               >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Registration trends chart will be displayed here
-                </Box>
+                <RegistrationTrendChart data={data?.registration_trends?.overall} />
               </DashboardCard>
             </SimpleGrid>
           </TabPanel>

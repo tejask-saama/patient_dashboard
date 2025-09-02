@@ -23,6 +23,8 @@ import DashboardCard from '../components/common/DashboardCard';
 import MetricCounter from '../components/common/MetricCounter';
 import EventSeverityChart from '../components/charts/EventSeverityChart';
 import EventTypesChart from '../components/charts/EventTypesChart';
+import EventsByDepartmentChart from '../components/charts/EventsByDepartmentChart';
+import EventOccurrenceTrendChart from '../components/charts/EventOccurrenceTrendChart';
 import { fetchAdverseEvents } from '../services/api';
 
 // Motion container for animation
@@ -118,14 +120,14 @@ const AdverseEvents = () => {
             <StatLabel>Critical Events</StatLabel>
             <StatNumber>
               {(() => {
-                const severityData = data?.severity_distribution || [];
+                const severityData = data?.distributions?.by_severity || [];
                 const critical = severityData.find(s => s.label === 'Critical')?.count || 0;
                 return critical.toLocaleString();
               })()}
             </StatNumber>
             <StatHelpText>
               {(() => {
-                const severityData = data?.severity_distribution || [];
+                const severityData = data?.distributions?.by_severity || [];
                 const critical = severityData.find(s => s.label === 'Critical')?.count || 0;
                 const total = data?.totals?.total_events || 0;
                 
@@ -143,7 +145,6 @@ const AdverseEvents = () => {
       <Tabs colorScheme="teal" isLazy variant="enclosed" mb={6}>
         <TabList>
           <Tab>Overview</Tab>
-          <Tab>Resolution</Tab>
           <Tab>Trends</Tab>
         </TabList>
         
@@ -156,7 +157,7 @@ const AdverseEvents = () => {
                 subtitle="Distribution by severity level"
                 height="400px"
               >
-                <EventSeverityChart data={data?.severity_distribution} />
+                <EventSeverityChart data={data?.distributions?.by_severity} />
               </DashboardCard>
               
               <DashboardCard 
@@ -164,7 +165,7 @@ const AdverseEvents = () => {
                 subtitle="Most common adverse event types"
                 height="400px"
               >
-                <EventTypesChart data={data?.event_types} />
+                <EventTypesChart data={data?.distributions?.by_type} />
               </DashboardCard>
               
               <DashboardCard 
@@ -172,47 +173,12 @@ const AdverseEvents = () => {
                 subtitle="Distribution across hospital departments"
                 height="400px"
               >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Department distribution chart will be displayed here
-                </Box>
+                <EventsByDepartmentChart data={data?.distributions?.by_location} />
               </DashboardCard>
               
-              <DashboardCard 
-                title="Patient Impact" 
-                subtitle="Level of impact on patients"
-                height="400px"
-              >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Patient impact chart will be displayed here
-                </Box>
-              </DashboardCard>
             </SimpleGrid>
           </TabPanel>
           
-          {/* Resolution Tab */}
-          <TabPanel p={0} pt={6}>
-            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={6}>
-              <DashboardCard 
-                title="Resolution Time by Severity" 
-                subtitle="Days to resolution by event severity"
-                height="400px"
-              >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Resolution time chart will be displayed here
-                </Box>
-              </DashboardCard>
-              
-              <DashboardCard 
-                title="Resolution Rate" 
-                subtitle="Percentage of events resolved"
-                height="400px"
-              >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Resolution rate chart will be displayed here
-                </Box>
-              </DashboardCard>
-            </SimpleGrid>
-          </TabPanel>
           
           {/* Trends Tab */}
           <TabPanel p={0} pt={6}>
@@ -222,20 +188,9 @@ const AdverseEvents = () => {
                 subtitle="Monthly trend of adverse events"
                 height="400px"
               >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Event trends chart will be displayed here
-                </Box>
+                <EventOccurrenceTrendChart data={data?.over_time} />
               </DashboardCard>
               
-              <DashboardCard 
-                title="Severity Trends" 
-                subtitle="Changes in severity distribution over time"
-                height="400px"
-              >
-                <Box p={10} textAlign="center" color="gray.500">
-                  Severity trends chart will be displayed here
-                </Box>
-              </DashboardCard>
             </SimpleGrid>
           </TabPanel>
         </TabPanels>

@@ -15,7 +15,6 @@ import AgeDistributionChart from '../components/charts/AgeDistributionChart';
 import GenderDistributionChart from '../components/charts/GenderDistributionChart';
 import EventSeverityChart from '../components/charts/EventSeverityChart';
 import EventTypesChart from '../components/charts/EventTypesChart';
-import BmiByMaritalStatusChart from '../components/charts/BmiByMaritalStatusChart';
 import AgeByCountryChart from '../components/charts/AgeByCountryChart';
 import { fetchPatientDemographics, fetchAdverseEvents, binAges } from '../services/api';
 
@@ -152,14 +151,6 @@ const Dashboard = () => {
 
       {/* Demographics Cross-cutting Analysis */}
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={6} mb={8} mt={8}>
-        <DashboardCard 
-          title="Average BMI by Marital Status" 
-          subtitle="Health metrics correlation"
-          height="350px"
-        >
-          <BmiByMaritalStatusChart data={patientData?.cross_cutting?.avg_bmi_by_marital_status} />
-        </DashboardCard>
-        
         <DashboardCard 
           title="Average Age by Country" 
           subtitle="Geographic age distribution"
